@@ -13,11 +13,9 @@ function App() {
   const [definition,setDefinition] = useState("");
   const [showResult,setShowResult] = useState("");
 
-  const handleSearch = (text) => {
-    setInputText(text);
-    console.log(text,"text")
+  const handleSearch = () => {
 
-    const foundWord = customDictionary.find((item)=> (item.word.toLowerCase() || item.word) === text.toLowerCase() );
+    const foundWord = customDictionary.find((item)=> (item.word.toLowerCase() || item.word) === inputText.toLowerCase() );
      if(!foundWord){
        return setDefinition('Word not found in the dictionary.')
      }
@@ -25,21 +23,16 @@ function App() {
      setDefinition(foundWord.meaning);
   };
 
-  const displayMeaning  = ()=>{
-    setShowResult(definition)
-  }
-
-
   return (
     <div className="App">
       <h1>Dictionary App</h1>
-        <input type="text" value={inputText} onChange={(e) => handleSearch(e.target.value)} />
-        <button onClick={displayMeaning}>Search</button>
+        <input type="text" value={inputText} onChange={(e) => setInputText(e.target.value)} placeholder='Search for a word...' />
+        <button onClick={handleSearch}>Search</button>
         <div>
         <strong>Definition: </strong>
-            {showResult && (
+            {definition && (
               <div>
-                <p>{showResult}</p>
+                <p>{definition}</p>
               </div>
             )}
         
